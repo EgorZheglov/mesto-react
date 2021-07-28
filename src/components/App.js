@@ -12,7 +12,11 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopup] = React.useState(false);
   const [isImagePopupOpen, setImagePopup] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState({});
+   //Строка была так как я изначально передовал только ссылку, 
+   //а потом вспомнил, что нужна еще и подпись под фотографией.
+   //Тем не менее, при установке стейта как null страница не открывается.
+   //в тренажере был такой же пример и там использовался пустой объект...
   
   function handleCardClick(card){
     setSelectedCard(card);
@@ -40,7 +44,7 @@ function closeAllPopups(){
   setAddPlacePopup(false);
   setAvatarPopup(false);
   setEditProfile(false);
-  setSelectedCard('')
+  setSelectedCard({})
 }
   
 
@@ -78,5 +82,4 @@ function closeAllPopups(){
 
 export default App;
 
-//React кажется очень необычным. Не все процессы пока понятны. 
-//Прошу прощения если где-то допустил очевидную глупость ;)
+//Большое спасибо за подробные комментарии!

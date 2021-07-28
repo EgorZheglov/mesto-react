@@ -31,7 +31,7 @@ function Main (props){
       .catch(err => {
         console.log(`Ошибка: ${err}`)
       })
-  });
+  }, []);
 
   
 
