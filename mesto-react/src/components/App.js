@@ -13,44 +13,43 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfile] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopup] = React.useState(false);
+  const [isImagePopupOpen, setImagePopup] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState('');
   
-  
+  function handleCardClick(card){
+    setSelectedCard(card);
+    toggleImagePopup();
+  }
 
   function toggleAddPlace(){
-    if(isAddPlacePopupOpen){
-      setAddPlacePopup(false);
-    } else {
-      setAddPlacePopup(true);
-    }
+    setAddPlacePopup(true);
   }
 
   function toggleEditAvatar(){
-    if(isEditAvatarPopupOpen){
-      setAvatarPopup(false);
-    } else {
       setAvatarPopup(true);
-    }
   }
 
   function toggleEditProfile(){
-    if(isEditProfilePopupOpen){
-      setEditProfile(false);
-    } else {
       setEditProfile(true);
-    }
+  }
+
+  function toggleImagePopup(){
+      setImagePopup(true);
   }
 
 function closeAllPopups(){
+  setImagePopup(false);
   setAddPlacePopup(false);
   setAvatarPopup(false);
   setEditProfile(false);
+  setSelectedCard('')
 }
   
 
   return (
     <div className="page">
     <Header />
-    <Main onEditProfile={toggleEditProfile} onAddPlace={toggleAddPlace} onEditAvatar={toggleEditAvatar}/>
+    <Main handleCardClick={handleCardClick} onEditProfile={toggleEditProfile} onAddPlace={toggleAddPlace} onEditAvatar={toggleEditAvatar}/>
     <Footer />
     <PopupWithForm name="edit" title="Редактировать профиль" onClose={closeAllPopups} isOpen={isEditProfilePopupOpen}>
       <input className = "popup__input" type = "text" name="nameInput" id="name_input" minLength="2" maxLength="40" required />
@@ -74,9 +73,12 @@ function closeAllPopups(){
     <PopupWithForm name="delete" title="Вы уверены?" onClose={closeAllPopups}>
       <button className = "popup__save-button" type = "submit">Да</button>
     </PopupWithForm>    
-    <PopupWithImage onClose={closeAllPopups}/>
+    <PopupWithImage onClose={closeAllPopups} isOpen={isImagePopupOpen} data={selectedCard}/>
     </div>
   );
 }
 
 export default App;
+
+//React кажется очень необычным. Не все процессы пока понятны. 
+//Прошу прощения если где-то допустил очевидную глупость ;)

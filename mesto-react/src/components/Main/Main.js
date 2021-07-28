@@ -56,7 +56,7 @@ function Main (props){
         </section>
         <section className="elements">
           {initialCards.map((card) => (
-            <Card data={card} />
+            <Card key={card._id} data={card} handleCardClick={props.handleCardClick}/>//Нет точной уверенности, что этот ключ подойдет.
           ))}
         </section>
     </div>
