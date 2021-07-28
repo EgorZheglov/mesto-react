@@ -4,7 +4,7 @@ import Header from './Header/Header'
 import Main from './Main/Main'
 import Footer from './Footer/Footer'
 import PopupWithForm from './PopupWithForm/PopupWithForm';
-import PopupWithImage from './PopupWithImage/PopupWithImage';
+import ImagePopup from './ImagePopup/ImagePopup';
 
 function App() {
   
@@ -71,7 +71,7 @@ function closeAllPopups(){
     <PopupWithForm name="delete" title="Вы уверены?" onClose={closeAllPopups}>
       <button className = "popup__save-button" type = "submit">Да</button>
     </PopupWithForm>    
-    <PopupWithImage onClose={closeAllPopups} isOpen={isImagePopupOpen} data={selectedCard}/>
+    <ImagePopup onClose={closeAllPopups} isOpen={isImagePopupOpen} selectedCard={selectedCard}/>
     </div>
   );
 }

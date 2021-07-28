@@ -1,8 +1,8 @@
 
 
-function PopupWithImage (props){
+function ImagePopup (props){
   
-  const card = props.data;
+  const card = props.selectedCard;
   
     return(
       <div className= {`popup popup_type_photo ${props.isOpen ? 'popup_is-opened' : ' '}`}>
@@ -15,4 +15,4 @@ function PopupWithImage (props){
     )
 }
 
-export default PopupWithImage
+export default ImagePopup
