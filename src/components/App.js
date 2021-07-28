@@ -1,4 +1,3 @@
-import logo from '../logo.svg';
 import './App.css';
 import React from 'react';
 import Header from './Header/Header'
@@ -6,7 +5,6 @@ import Main from './Main/Main'
 import Footer from './Footer/Footer'
 import PopupWithForm from './PopupWithForm/PopupWithForm';
 import PopupWithImage from './PopupWithImage/PopupWithImage';
-import api from '../servisces/api'
 
 function App() {
   
