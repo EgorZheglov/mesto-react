@@ -2,7 +2,14 @@
 
 function ImagePopup (props){
   
-  const card = props.selectedCard;
+  let card;
+  if(props.selectedCard){
+    card = props.selectedCard;
+  } else {
+    card = {};
+    //Не понятно до конца, почему я не могу задать просто пустой в App объект, используя первый setState. 
+    //Если оставить card = null, то без проверки происходит ошибка.
+  }
   
     return(
       <div className= {`popup popup_type_photo ${props.isOpen ? 'popup_is-opened' : ' '}`}>
