@@ -3,8 +3,11 @@ import React from 'react';
 import Header from './Header/Header'
 import Main from './Main/Main'
 import Footer from './Footer/Footer'
+import ProfileEditPopup from './ProfileEditPopup/ProfileEditPopup';
 import PopupWithForm from './PopupWithForm/PopupWithForm';
 import ImagePopup from './ImagePopup/ImagePopup';
+import api from '../services/api';
+import { UserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   
@@ -13,7 +16,15 @@ function App() {
   const [isEditAvatarPopupOpen, setAvatarPopup] = React.useState(false);
   const [isImagePopupOpen, setImagePopup] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
+  const [currentUser, setUser] = React.useState({})
   
+  React.useState(()=>{
+    api.getUserData()
+    .then(res =>{
+      setUser(res)
+    })
+  })
+
   function handleCardClick(card){
     setSelectedCard(card);
     toggleImagePopup();
@@ -24,38 +35,41 @@ function App() {
   }
 
   function toggleEditAvatar(){
-      setAvatarPopup(true);
+    setAvatarPopup(true);
   }
 
   function toggleEditProfile(){
-      setEditProfile(true);
+    setEditProfile(true);
   }
 
   function toggleImagePopup(){
-      setImagePopup(true);
+    setImagePopup(true);
   }
 
-function closeAllPopups(){
-  setImagePopup(false);
-  setAddPlacePopup(false);
-  setAvatarPopup(false);
-  setEditProfile(false);
-  setSelectedCard(null)
-}
+  function closeAllPopups(){
+    setImagePopup(false);
+    setAddPlacePopup(false);
+    setAvatarPopup(false);
+    setEditProfile(false);
+    setSelectedCard(null)
+  }
   
+  function handleUplateUser(name, about){
+    api.sendUserData(name, about)
+      .then((res) =>{
+        setUser(res)
+      })
+
+  }
 
   return (
     <div className="page">
     <Header />
-    <Main handleCardClick={handleCardClick} onEditProfile={toggleEditProfile} onAddPlace={toggleAddPlace} onEditAvatar={toggleEditAvatar}/>
-    <Footer />
-    <PopupWithForm name="edit" title="Редактировать профиль" onClose={closeAllPopups} isOpen={isEditProfilePopupOpen}>
-      <input className = "popup__input" type = "text" name="nameInput" id="name_input" minLength="2" maxLength="40" required />
-      <span className = "popup__input-error" id="name_input-error"></span>
-      <input className = "popup__input" type = "text" name="professionInput" id="profession_input" minLength="2" maxLength="200" required />
-      <span className = "popup__input-error" id="profession_input-error"></span>
-      <button className = "popup__save-button" type = "submit">Сохранить</button>
-    </PopupWithForm>
+    <UserContext.Provider value={currentUser}>
+      <Main handleCardClick={handleCardClick} onEditProfile={toggleEditProfile} onAddPlace={toggleAddPlace} onEditAvatar={toggleEditAvatar}/>
+      <Footer />
+      <ProfileEditPopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUplateUser}/>
+    </UserContext.Provider>
     <PopupWithForm name="add" title="Добавить Фото" onClose={closeAllPopups} isOpen={isAddPlacePopupOpen}>
       <input className = "popup__input" type = "text" name="photoNameInput" id="photo-name_input" placeholder="Название" minLength="2" maxLength="30"  required />
       <span className = "popup__input-error" id="photo-name_input-error"></span>

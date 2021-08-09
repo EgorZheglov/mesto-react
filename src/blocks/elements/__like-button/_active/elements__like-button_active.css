@@ -1,4 +1,10 @@
 .elements__like-button_active{
+    margin-top:5px;
+    width:22px;
+    margin-bottom: 3px;
+    height:19px;
+    border-style:none;
+    background-color:white;
     background-image: url(../../../../images/like_active.svg);
 }
 /**Hover'a для активного состояния в макете не нашел...**/
