@@ -3,7 +3,7 @@ import React from 'react';
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
-import ProfileEditPopup from './ProfileEditPopup';
+import EditProfilePopup from './ProfileEditPopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
@@ -130,7 +130,7 @@ function App() {
         onCardDelete={handleCardDelete}
         onCardLike={handleCardLike}/>
       <Footer />
-      <ProfileEditPopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
     </UserContext.Provider>
     <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
     <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}/>
