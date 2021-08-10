@@ -1,8 +1,8 @@
-import vector from '../../images/Vector1.svg';
-import cross from '../../images/cross.svg';
+import vector from '../images/Vector1.svg';
+import cross from '../images/cross.svg';
 import React from 'react';
-import Card from '../Card/Card';
-import { UserContext } from '../../contexts/CurrentUserContext';
+import Card from './Card';
+import { UserContext } from '../contexts/CurrentUserContext';
 
 
 function Main (props){

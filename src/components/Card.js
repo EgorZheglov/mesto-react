@@ -1,7 +1,7 @@
-import trash1 from '../../images/delete1.svg'
-import trash2 from '../../images/delete2.svg'
+import trash1 from '../images/delete1.svg'
+import trash2 from '../images/delete2.svg'
 import React from 'react';
-import { UserContext } from '../../contexts/CurrentUserContext';
+import { UserContext } from '../contexts/CurrentUserContext';
 
 function Card (props){
 

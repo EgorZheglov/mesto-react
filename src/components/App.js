@@ -1,15 +1,15 @@
 import './App.css';
 import React from 'react';
-import Header from './Header/Header'
-import Main from './Main/Main'
-import Footer from './Footer/Footer'
-import ProfileEditPopup from './ProfileEditPopup/ProfileEditPopup';
-import PopupWithForm from './PopupWithForm/PopupWithForm';
-import ImagePopup from './ImagePopup/ImagePopup';
-import api from '../services/api';
-import EditAvatarPopup from './EditAvatarPopup/EditAvatarPopup';
+import Header from './Header'
+import Main from './Main'
+import Footer from './Footer'
+import ProfileEditPopup from './ProfileEditPopup';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import api from '../utils/api';
+import EditAvatarPopup from './EditAvatarPopup';
 import { UserContext } from '../contexts/CurrentUserContext';
-import AddPlacePopup from './AddPlacePopup/AddPlacePopup'
+import AddPlacePopup from './AddPlacePopup'
 
 function App() {
   
