@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.19aecb70.chunk.css",
+    "main.js": "/static/js/main.0177cc25.chunk.js",
+    "main.js.map": "/static/js/main.0177cc25.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ef99b0a4.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ef99b0a4.js.map",
+    "static/js/2.b74af212.chunk.js": "/static/js/2.b74af212.chunk.js",
+    "static/js/2.b74af212.chunk.js.map": "/static/js/2.b74af212.chunk.js.map",
+    "static/js/3.944cac09.chunk.js": "/static/js/3.944cac09.chunk.js",
+    "static/js/3.944cac09.chunk.js.map": "/static/js/3.944cac09.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.19aecb70.chunk.css.map": "/static/css/main.19aecb70.chunk.css.map",
+    "static/js/2.b74af212.chunk.js.LICENSE.txt": "/static/js/2.b74af212.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/like_active.dd6a61e8.svg",
+    "static/media/Vector.bbe2a6ea.svg": "/static/media/Vector.bbe2a6ea.svg",
+    "static/media/Vector1.6c7bf054.svg": "/static/media/Vector1.6c7bf054.svg",
+    "static/media/cross.bed8c136.svg": "/static/media/cross.bed8c136.svg",
+    "static/media/delete1.e690a784.svg": "/static/media/delete1.e690a784.svg",
+    "static/media/delete2.005724a1.svg": "/static/media/delete2.005724a1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ef99b0a4.js",
+    "static/js/2.b74af212.chunk.js",
+    "static/css/main.19aecb70.chunk.css",
+    "static/js/main.0177cc25.chunk.js"
+  ]
+}
