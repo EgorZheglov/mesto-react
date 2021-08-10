@@ -5,7 +5,6 @@ import { UserContext } from '../contexts/CurrentUserContext';
 
 function Card (props){
 
-
     const currentUser = React.useContext(UserContext);
 
     let card = props.data;
