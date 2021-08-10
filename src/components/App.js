@@ -3,10 +3,10 @@ import React from 'react';
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
-import EditProfilePopup from './ProfileEditPopup';
+import EditProfilePopup from './EditProfilePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-import api from '../utils/api';
+import api from '../services/api';
 import EditAvatarPopup from './EditAvatarPopup';
 import { UserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup'
