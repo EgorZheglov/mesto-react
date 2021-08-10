@@ -10,9 +10,6 @@ function Main (props){
 
   const currentUser = React.useContext(UserContext);
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [avatar, setUserAvatar] = React.useState('');
   const [initialCards, setCards] = React.useState([]);
 
   
