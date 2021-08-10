@@ -24,7 +24,6 @@ function ProfileEditPopup(props){
 
     function handleSubmit(e) {
         // Запрещаем браузеру переходить по адресу формы
-        console.log(1)
         e.preventDefault();
         props.onUpdateUser(name, description);
     }

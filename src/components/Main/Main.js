@@ -2,7 +2,6 @@ import vector from '../../images/Vector1.svg';
 import cross from '../../images/cross.svg';
 import React from 'react';
 import Card from '../Card/Card';
-import api from '../../services/api'
 import { UserContext } from '../../contexts/CurrentUserContext';
 
 
@@ -10,43 +9,6 @@ function Main (props){
 
   const currentUser = React.useContext(UserContext);
 
-  const [initialCards, setCards] = React.useState([]);
-
-  
-  React.useEffect(() => {
-      api.getInitialCards()
-      .then(res =>{
-        setCards(res)
-      })
-      .catch(err => {
-        console.log(`Ошибка: ${err}`)
-      })
-  }, []);
-
-  function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(like => like._id === currentUser._id);
-    
-    let method = isLiked ? 'DELETE' : 'PUT';
-
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.toggleLike(card._id, method)
-      .then((newCard) => {
-         setCards((state) => {
-           return state.map((c) => c._id === card._id ? newCard : c)//вставляем обновленную карточку
-         });
-    });
-  } 
-   
-
-  function handleCardDelete(card) {
-    api.deleteCard(card._id)
-      .then(() => {
-         setCards((state) => {
-           return state.filter((c) => c._id !== card._id )//вставляем обновленную карточку
-         });
-    });
-  } 
 
   return(
     <div className="main">
@@ -68,8 +30,8 @@ function Main (props){
         </button>
         </section>
         <section className="elements">
-          {initialCards.map((card) => (
-            <Card key={card._id} data={card} handleCardClick={props.handleCardClick} onDeleteClick={handleCardDelete} onLikeClick={handleCardLike}/>//Нет точной уверенности, что этот ключ подойдет.
+          {props.cards.map((card) => (
+            <Card key={card._id} data={card} handleCardClick={props.handleCardClick} onDeleteClick={props.onCardDelete} onLikeClick={props.onCardLike}/>//Нет точной уверенности, что этот ключ подойдет.
           ))}
         </section>
     </div>
