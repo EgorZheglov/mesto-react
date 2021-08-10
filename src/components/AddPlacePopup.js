@@ -17,6 +17,8 @@ function AddPlacePopup(props){
         // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
         props.onAddCard(place, link);
+        setName('');
+        setLink('');
     }
 
     return(
@@ -25,7 +27,6 @@ function AddPlacePopup(props){
         <span className = "popup__input-error" id="photo-name_input-error"></span>
         <input className = "popup__input" value={link} onChange={handleChangeLink} type = "url" name="photoLinkInput" placeholder="Ссылка на картинку" id="photo-link_input"  required />
         <span className = "popup__input-error" id="photo-link_input-error"></span>
-        <button className = "popup__save-button" type = "submit">Сохранить</button>
       </PopupWithForm>)
 }
 
