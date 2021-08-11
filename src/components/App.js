@@ -43,13 +43,19 @@ function App() {
          setCards((state) => {
            return state.map((c) => c._id === card._id ? newCard : c)//вставляем обновленную карточку
          });
-    });
+      })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
+      })
   } 
   
   React.useState(()=>{
     api.getUserData()
     .then(res =>{
       setUser(res)
+    })
+    .catch(err => {
+      console.log(`Ошибка: ${err}`)
     })
   },[])
 
@@ -98,6 +104,9 @@ function App() {
         setUser(res);
         closeAllPopups();
       })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
+      })
   }
 
   function handleUpdateAvatar(link){
@@ -106,6 +115,9 @@ function App() {
         setUser(res);
         closeAllPopups();
       })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
+      })
   }
 
   function handleAddCard(name, link){
@@ -113,6 +125,9 @@ function App() {
       .then((newCard) =>{
         setCards([newCard, ...initialCards]);
         closeAllPopups();
+      })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
       })
   }
 
