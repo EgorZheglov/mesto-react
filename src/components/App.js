@@ -70,7 +70,10 @@ function App() {
          setCards((state) => {
            return state.filter((c) => c._id !== card._id )//вставляем обновленную карточку
          });
-    });
+    })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
+      })
   } 
 
 
@@ -158,4 +161,4 @@ function App() {
 
 export default App;
 
-//Большое спасибо за подробные комментарии!
+//Еще раз спасибо большое!
