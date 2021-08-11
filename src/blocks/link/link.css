@@ -7,4 +7,8 @@
     outline: none;
     cursor: pointer;    
   }
+
+  .link:hover{
+    opacity:10%
+  }
   
