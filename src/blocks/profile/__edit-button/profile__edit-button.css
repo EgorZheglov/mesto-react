@@ -8,10 +8,13 @@
     border:1px solid white;
     margin-top:37px;
     margin-bottom: 0;
+    background-color: inherit;
+    transition:opacity 1s linear;
+    cursor: pointer;
 }
 
 .profile__edit-button:hover{
-  opacity:60%;
+  opacity:0.6;
 }
 
 @media (max-width: 760px) {

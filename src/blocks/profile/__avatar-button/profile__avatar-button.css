@@ -3,6 +3,7 @@
     margin-right:30px;
     background-color: black;
     border-style: none;
+    cursor: pointer;
     z-index: 0;
 }
 

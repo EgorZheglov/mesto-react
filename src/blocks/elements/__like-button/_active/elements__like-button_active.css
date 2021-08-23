@@ -6,6 +6,13 @@
     border-style:none;
     background-color:white;
     background-image: url(../../../../images/like_active.svg);
+    transition: opacity linear 1s
 }
+
+
+.elements__like-button_active:hover{
+    opacity:0.6;
+}
+
 /**Hover'a для активного состояния в макете не нашел...**/
 

@@ -3,9 +3,9 @@
     min-height:282px;
     height:282px;
     background-color: black;
+    transition:opacity 1s ease-out;
 }
 
 .elements__photo:hover{
-    transition:opacity ease-in-out;
-    opacity:80%;
+    opacity:0.6;
 }

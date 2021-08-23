@@ -7,8 +7,10 @@
     background-color:white;
     background-image: url(../../../images/Like.svg);
     background-position:center;
+    transition: opacity linear 1s
 }
 
+
 .elements__like-button:hover{
-    opacity:50%;
+    opacity:0.6;
 }

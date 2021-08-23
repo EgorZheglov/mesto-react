@@ -12,7 +12,7 @@ function Card (props){
 
     const cardDeleteButtonClassName = `${isOwn ? 'elements__delete-button link' : 'elements__delete-button_disabled'}`;
 
-    let isLiked = card.likes.some(likeOwner => likeOwner._id === currentUser._id)//так она же может тут меняться...
+    const isLiked = card.likes.some(likeOwner => likeOwner._id === currentUser._id)//так она же может тут меняться...
 
     const likeButtonClassName = `link ${isLiked ? 'elements__like-button_active ' : 'elements__like-button'}`;
 

@@ -146,9 +146,9 @@ function App() {
         cards={initialCards}
         onCardDelete={handleCardDelete}
         onCardLike={handleCardLike}/>
-      <Footer />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
     </UserContext.Provider>
+    <Footer />
     <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
     <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}/>
     <PopupWithForm name="delete" title="Вы уверены?" onClose={closeAllPopups}>
