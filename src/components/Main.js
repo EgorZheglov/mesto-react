@@ -8,8 +8,7 @@ import { UserContext } from '../contexts/CurrentUserContext';
 function Main (props){
 
   const currentUser = React.useContext(UserContext);
-
-
+  
   return(
     <div className="main">
       <section className="profile">
@@ -30,9 +29,10 @@ function Main (props){
         </button>
         </section>
         <section className="elements">
-          {props.cards.forEach((card) => (
-            <Card key={card._id} data={card} handleCardClick={props.handleCardClick} onDeleteClick={props.onCardDelete} onLikeClick={props.onCardLike}/>//Нет точной уверенности, что этот ключ подойдет.
-          ))}
+          {props.cards? props.cards.map((card) => (
+            <Card key={card._id} data={card} handleCardClick={props.handleCardClick} onDeleteClick={props.onCardDelete} onLikeClick={props.onCardLike}/>
+          ))
+          :'Загрузка карточек'}
         </section>
     </div>
     )

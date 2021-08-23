@@ -20,6 +20,7 @@ function Card (props){
       props.handleCardClick(card);
     }  
 
+    
     return(
         <div className="elements__item">
           <button className="elements__popup-button" type="button" onClick={handleClick}>

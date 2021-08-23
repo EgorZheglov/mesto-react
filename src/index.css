@@ -60,3 +60,17 @@
 @import url(./blocks/popup/__input-error/popup__input-error.css);
 @import url(./blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(./blocks/popup/__save-button/_disabled/popup__save-button_disabled.css);
+@import url(./blocks/sign/sign.css);
+@import url(./blocks/sign/__title/sign__title.css);
+@import url(./blocks/sign/__input/sign__input.css);
+@import url(./blocks/sign/__button/sign__button.css);
+@import url(./blocks/sign/__link/sign__link.css);
+@import url(./blocks/popup/__registration-title/popup__registration-title.css);
+@import url(./blocks/popup/__registration-image/popup__registration-image.css);
+    
+
+
+
+.border{
+    border:1px solid red
+}
