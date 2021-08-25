@@ -1,7 +1,7 @@
 import succes from '../images/succes.svg'
 import error from '../images/error.svg'
 
-function RegistrationPopup (props){  
+function InfoTooltip (props){  
       return(
         <div className= {`popup popup_type_photo ${props.isOpen ? 'popup_is-opened' : ' '}`} onClick={props.onClose}>
             <div className="popup__container">
@@ -13,4 +13,4 @@ function RegistrationPopup (props){
       )
   }
   
-  export default RegistrationPopup
+  export default InfoTooltip

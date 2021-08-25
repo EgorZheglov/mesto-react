@@ -1,5 +1,6 @@
 class Api {
     constructor({baseUrl, headers}) {
+      this._registrationURL = 'https://auth.nomoreparties.co' //Пока что тут такой хардкод, насколько я понимаю.
       this._url = baseUrl;
       this._headers = headers;
     }
@@ -87,7 +88,45 @@ class Api {
       })
       .then(this._checkResponse)
     }
+
+    signUp(email, password){
+      //Регистрируем пользователя
+
+      return fetch(`${this._registrationURL}/signup`, {
+        method:`POST`,
+        "Content-Type": "application/json", 
+        body: JSON.stringify({
+          "password": `${password}`,
+          "email": `${email}` 
+        })
+      })
+      .then(this._checkResponse)
+    }
   }
+
+  class SignApi{
+    constructor(baseUrl){
+      this.url = baseUrl;
+    }
+
+
+    signIn(email, password){
+       //Авторизируем пользователя
+
+      return fetch(`${this._registrationURL}/signin`,{
+        method:`POST`,
+         headers: this._headers['Content-Type'],
+         body: JSON.stringify({
+           "password": `${password}`,
+           "email": `${email}` 
+         })
+       })
+       .then(this._checkResponse)
+     }
+  }
+
+  const signApi = new SignApi('https://auth.nomoreparties.co/');
+
 
   const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
@@ -97,4 +136,4 @@ class Api {
     }
   });
 
-  export default api;
+  export {api, signApi};

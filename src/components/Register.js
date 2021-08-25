@@ -1,5 +1,5 @@
 
-function SignUp (){
+function Register (){
     return(
         <form className='sign'>
             <h1 className = "sign__title">Регистрация</h1>
@@ -13,4 +13,4 @@ function SignUp (){
     )
 }
 
-export default SignUp
+export default Register

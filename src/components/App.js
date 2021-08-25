@@ -5,13 +5,14 @@ import Footer from './Footer'
 import EditProfilePopup from './EditProfilePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-import api from '../utils/api';
-import SignUp from './SignUp';
+import {api, signApi} from '../utils/api';
+import Register from './Register';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import EditAvatarPopup from './EditAvatarPopup';
 import { UserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup'
-import RegistrationPopup from './RegistrationPopup'
+import InfoTooltip from './InfoTooltip'
+import Login from './Login'
 
 function App() {
   
@@ -23,19 +24,10 @@ function App() {
   const [currentUser, setUser] = React.useState({name:'', about: ''})
   const [initialCards, setCards] = React.useState(null);
   const [loggedIn, setLogIn] = React.useState(false);
-  const [isRegistrationPopupOpen, setRegistrationPopup] = React.useState(true);
+  const [isRegistrationPopupOpen, setRegistrationPopup] = React.useState(false);
 
   
-  React.useEffect(() => {
-      api.getInitialCards()
-      .then(res =>{
-        setCards(res)
-      })
-      .catch(err => {
-        console.log(`Ошибка: ${err}`)
-      })
-  }, []);
-
+  
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(like => like._id === currentUser._id);
@@ -53,7 +45,7 @@ function App() {
         console.log(`Ошибка: ${err}`)
       })
   } 
-  
+
   React.useEffect(()=>{
     api.getUserData()
     .then(res =>{
@@ -62,6 +54,14 @@ function App() {
     .catch(err => {
       console.log(`Ошибка: ${err}`)
     })
+
+    api.getInitialCards()
+      .then(res =>{
+        setCards(res)
+      })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
+      })
   },[])
 
   function handleCardClick(card){
@@ -162,12 +162,10 @@ function App() {
     </UserContext.Provider>
       </Route>
       <Route path='/sign-up'>
-        <SignUp />
+        <Register />
       </Route>
       <Route path='/sign-in'>
-        <p>
-          sign-in
-        </p>
+         <Login />  
       </Route>
       <Route>
           {!loggedIn ? (<Redirect to="/profile" />) : (<Redirect to="/sign-up" />)}
@@ -179,7 +177,7 @@ function App() {
           <button className = "popup__save-button" type = "submit">Да</button>
         </PopupWithForm>    
     <ImagePopup onClose={closeAllPopups} isOpen={isImagePopupOpen} selectedCard={selectedCard}/>
-    <RegistrationPopup onClose={closeAllPopups} isOpen={isRegistrationPopupOpen}/>
+    <InfoTooltip onClose={closeAllPopups} isOpen={isRegistrationPopupOpen}/>
     <Footer />
     </div>
   );
