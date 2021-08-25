@@ -88,44 +88,41 @@ class Api {
       })
       .then(this._checkResponse)
     }
-
-    signUp(email, password){
-      //Регистрируем пользователя
-
-      return fetch(`${this._registrationURL}/signup`, {
-        method:`POST`,
-        "Content-Type": "application/json", 
-        body: JSON.stringify({
-          "password": `${password}`,
-          "email": `${email}` 
-        })
-      })
-      .then(this._checkResponse)
-    }
   }
+
+
 
   class SignApi{
     constructor(baseUrl){
-      this.url = baseUrl;
+      this._url = baseUrl;
     }
 
+    _checkResponse(res) {
+      //проверка ответа на запрос
+        if (res.ok) {
+          return res.json()
+        }
+        console.log(res)
+        return Promise.reject(res.status)
+      }
 
-    signIn(email, password){
+    signUp(email, password){
        //Авторизируем пользователя
 
-      return fetch(`${this._registrationURL}/signin`,{
-        method:`POST`,
-         headers: this._headers['Content-Type'],
-         body: JSON.stringify({
-           "password": `${password}`,
-           "email": `${email}` 
-         })
-       })
-       .then(this._checkResponse)
+      return fetch(`${this._url}/signup`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          password: `${password}`,
+          email: `${email}`
+        })
+      })
+      .then(this._checkResponse)
      }
   }
 
-  const signApi = new SignApi('https://auth.nomoreparties.co/');
+
+  const signApi = new SignApi('https://auth.nomoreparties.co');
 
 
   const api = new Api({

@@ -1,13 +1,32 @@
+import React from 'react';
 
-function Register (){
+
+function Register (props){
+
+    const [email, setEmail] =React.useState('')
+    const [password, setPassword] =React.useState('')
+
+    function handleChangeEmail(e) {
+        setEmail(e.target.value);
+      }
+  
+      function handleChangePassword(e) {
+        setPassword(e.target.value);
+      }
+
+    function signUpSubmit(e){
+        e.preventDefault()
+        props.onSignUp(email, password);
+    }
+
     return(
         <form className='sign'>
             <h1 className = "sign__title">Регистрация</h1>
-            <input className = "sign__input" type = "email"  name="emailInput" id="email_input" placeholder='email' required />
+            <input className = "sign__input" type = "email" onChange={handleChangeEmail} name="emailInput" id="email_input" placeholder='email' required />
             
-            <input className = "sign__input" type = "password" name="passwordInput"  placeholder='Пароль' id="password_input" minLength="2" maxLength="20" required />
+            <input className = "sign__input" type = "password" onChange={handleChangePassword} name="passwordInput"  placeholder='Пароль' id="password_input" minLength="2" maxLength="20" required />
           
-            <button className = "sign__button link" type = "submit">Зарегистрироваться</button> 
+            <button className = "sign__button link" type = "submit" onClick={signUpSubmit}>Зарегистрироваться</button> 
             <p>Уже зарегестрированы? <button className="sign__link link"> Войти</button></p>
         </form>
     )

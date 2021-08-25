@@ -7,12 +7,13 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import {api, signApi} from '../utils/api';
 import Register from './Register';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import EditAvatarPopup from './EditAvatarPopup';
 import { UserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup'
 import InfoTooltip from './InfoTooltip'
 import Login from './Login'
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   
@@ -25,6 +26,9 @@ function App() {
   const [initialCards, setCards] = React.useState(null);
   const [loggedIn, setLogIn] = React.useState(false);
   const [isRegistrationPopupOpen, setRegistrationPopup] = React.useState(false);
+  const [signSuccsess, setSignSucces] = React.useState(true);
+
+  const history = useHistory();
 
   
   
@@ -63,6 +67,19 @@ function App() {
         console.log(`Ошибка: ${err}`)
       })
   },[])
+
+  function handleSignUpSubmit(email, password){
+    signApi.signUp(email, password)
+    .then(res => {
+      setSignSucces(true);
+      setRegistrationPopup(true);
+      history.push('/signin')
+    })
+    .catch(err => {
+      setSignSucces(false)
+      setRegistrationPopup(true);
+    })
+  }
 
   function handleCardClick(card){
     setSelectedCard(card);
@@ -147,22 +164,21 @@ function App() {
   return (
     <div className="page">
     <Header />
+    <UserContext.Provider value={currentUser}>
     <Switch>
-      <Route path='/profile'>
-        <UserContext.Provider value={currentUser}>
-        <Main 
+      <ProtectedRoute 
+          path='/profile'
+          component={Main}  
+          loggedIn = {loggedIn}  
           handleCardClick={handleCardClick} 
           onEditProfile={toggleEditProfile} 
           onAddPlace={toggleAddPlace} 
           onEditAvatar={toggleEditAvatar}
           cards={initialCards}
           onCardDelete={handleCardDelete}
-          onCardLike={handleCardLike}/>
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
-    </UserContext.Provider>
-      </Route>
+          onCardLike={handleCardLike}/>  
       <Route path='/sign-up'>
-        <Register />
+        <Register onSignUp = {handleSignUpSubmit}/>
       </Route>
       <Route path='/sign-in'>
          <Login />  
@@ -171,13 +187,15 @@ function App() {
           {!loggedIn ? (<Redirect to="/profile" />) : (<Redirect to="/sign-up" />)}
       </Route>
     </Switch>
+    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>  
+    </UserContext.Provider>
     <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
     <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}/>
     <PopupWithForm name="delete" title="Вы уверены?" onClose={closeAllPopups}>
           <button className = "popup__save-button" type = "submit">Да</button>
         </PopupWithForm>    
     <ImagePopup onClose={closeAllPopups} isOpen={isImagePopupOpen} selectedCard={selectedCard}/>
-    <InfoTooltip onClose={closeAllPopups} isOpen={isRegistrationPopupOpen}/>
+    <InfoTooltip onClose={closeAllPopups} isSuccesed={signSuccsess} isOpen={isRegistrationPopupOpen}/>
     <Footer />
     </div>
   );
