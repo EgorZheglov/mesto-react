@@ -4,6 +4,9 @@
 @import url(./blocks/link/link.css);
 @import url(./blocks/page/page.css);
 @import url(./blocks/header/header.css);
+@import url(./blocks/header/__info/header__info.css);
+@import url(./blocks/header/__button/header__button.css);
+@import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/main/main.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/profile/profile.css);
@@ -71,6 +74,3 @@
 
 
 
-.border{
-    border:1px solid red
-}

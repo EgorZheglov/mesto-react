@@ -7,7 +7,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import {api, signApi} from '../utils/api';
 import Register from './Register';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory, useRouteMatch} from 'react-router-dom';
 import EditAvatarPopup from './EditAvatarPopup';
 import { UserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup'
@@ -27,22 +27,23 @@ function App() {
   const [loggedIn, setLogIn] = React.useState(false);
   const [isRegistrationPopupOpen, setRegistrationPopup] = React.useState(false);
   const [signSuccsess, setSignSucces] = React.useState(true);
+  const [email, setEmail] =React.useState('')
 
   const history = useHistory();
 
+  const {path} = useRouteMatch();
   
-  
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(like => like._id === currentUser._id);
     
     const method = isLiked ? 'DELETE' : 'PUT';
 
-    // Отправляем запрос в API и получаем обновлённые данные карточки
     api.toggleLike(card._id, method)
       .then((newCard) => {
          setCards((state) => {
-           return state.map((c) => c._id === card._id ? newCard : c)//вставляем обновленную карточку
+           return state.map((c) => c._id === card._id ? newCard : c)
          });
       })
       .catch(err => {
@@ -50,36 +51,60 @@ function App() {
       })
   } 
 
-  React.useEffect(()=>{
-    api.getUserData()
-    .then(res =>{
-      setUser(res)
-    })
-    .catch(err => {
-      console.log(`Ошибка: ${err}`)
-    })
 
-    api.getInitialCards()
-      .then(res =>{
-        setCards(res)
-      })
-      .catch(err => {
-        console.log(`Ошибка: ${err}`)
-      })
-  },[])
+  function handleLogOut(){
+    history.push('/sign-in');
+    setLogIn(false)
+  }
 
   function handleSignUpSubmit(email, password){
     signApi.signUp(email, password)
     .then(res => {
       setSignSucces(true);
       setRegistrationPopup(true);
-      history.push('/signin')
+      
+      
+      history.push('/sign-in')
     })
     .catch(err => {
       setSignSucces(false)
       setRegistrationPopup(true);
     })
   }
+
+  function handleSignInSubmit(email, password){
+    
+    signApi.signIn(email, password)
+    .then(res => {
+      setLogIn(true)
+
+      setEmail(email)
+
+      history.push('/')
+
+
+      api.getUserData()
+      .then(res =>{
+        setUser(res)
+      })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
+      })
+
+      api.getInitialCards()
+      .then(res =>{
+        setCards(res)
+      })
+      .catch(err => {
+        console.log(`Ошибка: ${err}`)
+      })
+    })
+    .catch(err => {
+      setSignSucces(false)
+      setRegistrationPopup(true);
+    })
+  }
+
 
   function handleCardClick(card){
     setSelectedCard(card);
@@ -113,10 +138,6 @@ function App() {
 
   function toggleImagePopup(){
     setImagePopup(true);
-  }
-
-  function togglRegistrationPopup(){
-    setRegistrationPopup(true);
   }
 
   function closeAllPopups(){
@@ -163,11 +184,11 @@ function App() {
 
   return (
     <div className="page">
-    <Header />
+    <Header isLoggedIn={loggedIn} email={email} onLogOut={handleLogOut}/>
     <UserContext.Provider value={currentUser}>
     <Switch>
       <ProtectedRoute 
-          path='/profile'
+          exact path='/'
           component={Main}  
           loggedIn = {loggedIn}  
           handleCardClick={handleCardClick} 
@@ -180,8 +201,8 @@ function App() {
       <Route path='/sign-up'>
         <Register onSignUp = {handleSignUpSubmit}/>
       </Route>
-      <Route path='/sign-in'>
-         <Login />  
+      <Route path='/sign-in' >
+         <Login onSignIn = {handleSignInSubmit}/>  
       </Route>
       <Route>
           {!loggedIn ? (<Redirect to="/profile" />) : (<Redirect to="/sign-up" />)}

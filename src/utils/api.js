@@ -4,7 +4,7 @@ class Api {
       this._url = baseUrl;
       this._headers = headers;
     }
-  
+
     _checkResponse(res) {
       //проверка ответа на запрос
         if (res.ok) {
@@ -107,7 +107,7 @@ class Api {
       }
 
     signUp(email, password){
-       //Авторизируем пользователя
+       //Регистрируем пользователя пользователя
 
       return fetch(`${this._url}/signup`, {
         method: 'POST',
@@ -119,6 +119,20 @@ class Api {
       })
       .then(this._checkResponse)
      }
+
+     signIn(email, password){
+      //Авторизируем пользователя
+
+     return fetch(`${this._url}/signin`, {
+       method: 'POST',
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify({
+         password: `${password}`,
+         email: `${email}`
+       })
+     })
+     .then(this._checkResponse)
+    }
   }
 
 

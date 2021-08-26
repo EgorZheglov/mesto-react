@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 function Register (props){
@@ -27,7 +28,7 @@ function Register (props){
             <input className = "sign__input" type = "password" onChange={handleChangePassword} name="passwordInput"  placeholder='Пароль' id="password_input" minLength="2" maxLength="20" required />
           
             <button className = "sign__button link" type = "submit" onClick={signUpSubmit}>Зарегистрироваться</button> 
-            <p>Уже зарегестрированы? <button className="sign__link link"> Войти</button></p>
+            <p>Уже зарегестрированы? <Link to="/sign-in" className = "sign__link link">Войти</Link></p>
         </form>
     )
 }

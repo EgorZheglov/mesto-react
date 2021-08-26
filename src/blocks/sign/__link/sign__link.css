@@ -3,6 +3,7 @@
     background-color: black;
     border:none;
     outline: none;
+    text-decoration: none;
     transform: opacity 1s linear;
 }
 
