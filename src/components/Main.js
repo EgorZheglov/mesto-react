@@ -3,7 +3,7 @@ import cross from '../images/cross.svg';
 import React from 'react';
 import Card from './Card';
 import { UserContext } from '../contexts/CurrentUserContext';
-
+import Header from './Header';
 
 function Main (props){
 
@@ -11,6 +11,7 @@ function Main (props){
   
   return(
     <div className="main">
+      <Header isLoggedIn={props.loggedIn} email={props.email} onLogOut={props.onLogOut}/>
       <section className="profile">
         <div className="profile__info">
           <button className='profile__avatar-button' onClick={props.onEditAvatar} type='button'>

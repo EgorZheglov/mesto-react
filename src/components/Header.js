@@ -1,19 +1,22 @@
 import logo from '../images/Vector.svg'
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 
 function Header (props){
 
     let linkText; //Если использовать useState, бесконечный перерендер
     let linkPath;
 
+    const {path} = useRouteMatch()
+
+    
     const history = useHistory();
 
-    if(history.location.pathname === '/sign-in'){
+    if(path === '/sign-in'){
         linkText = 'Регистрация'
         linkPath = '/sign-up'
     }else{
-        if(history.location.pathname === '/sign-up'){
+        if(path === '/sign-up'){
             linkText = 'Вход'
             linkPath = '/sign-in'  
         }

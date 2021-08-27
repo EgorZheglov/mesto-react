@@ -102,8 +102,7 @@ class Api {
         if (res.ok) {
           return res.json()
         }
-        console.log(res)
-        return Promise.reject(res.status)
+        return Promise.reject(res)
       }
 
     signUp(email, password){
@@ -120,7 +119,7 @@ class Api {
       .then(this._checkResponse)
      }
 
-     signIn(email, password){
+    signIn(email, password){
       //Авторизируем пользователя
 
      return fetch(`${this._url}/signin`, {
@@ -133,6 +132,17 @@ class Api {
      })
      .then(this._checkResponse)
     }
+
+    tokenCheck(token){
+     return fetch(`${this._url}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    .then(this._checkResponse)
+    } 
   }
 
 

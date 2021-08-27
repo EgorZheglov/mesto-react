@@ -7,7 +7,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import {api, signApi} from '../utils/api';
 import Register from './Register';
-import { Route, Switch, Redirect, useHistory, useRouteMatch} from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory} from 'react-router-dom';
 import EditAvatarPopup from './EditAvatarPopup';
 import { UserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup'
@@ -27,11 +27,35 @@ function App() {
   const [loggedIn, setLogIn] = React.useState(false);
   const [isRegistrationPopupOpen, setRegistrationPopup] = React.useState(false);
   const [signSuccsess, setSignSucces] = React.useState(true);
-  const [email, setEmail] =React.useState('')
+  const [email, setEmail] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const history = useHistory();
 
-  const {path} = useRouteMatch();
+  React.useEffect(()=>{
+    let jwt = localStorage.getItem('jwt')
+
+    if(!jwt){
+      setIsLoading(false)
+      return;
+    }
+
+    signApi.tokenCheck(jwt)
+    .then(res => {
+
+      setEmail(res.data.email)
+
+      loadData()
+
+      setLogIn(true)
+
+      setIsLoading(false)
+    })
+    .catch(err =>{
+      console.log(`Ошибка проверки токена!:${err}`)
+    })
+
+  },[])
   
 
   function handleCardLike(card) {
@@ -55,6 +79,8 @@ function App() {
   function handleLogOut(){
     history.push('/sign-in');
     setLogIn(false)
+
+    localStorage.removeItem('jwt')
   }
 
   function handleSignUpSubmit(email, password){
@@ -72,18 +98,9 @@ function App() {
     })
   }
 
-  function handleSignInSubmit(email, password){
-    
-    signApi.signIn(email, password)
-    .then(res => {
-      setLogIn(true)
 
-      setEmail(email)
-
-      history.push('/')
-
-
-      api.getUserData()
+  function loadData(){
+    api.getUserData()
       .then(res =>{
         setUser(res)
       })
@@ -98,6 +115,21 @@ function App() {
       .catch(err => {
         console.log(`Ошибка: ${err}`)
       })
+  }
+
+  function handleSignInSubmit(email, password){
+    
+    signApi.signIn(email, password)
+    .then(res => {
+      setLogIn(true)
+
+      setEmail(email);
+
+      localStorage.setItem('jwt', res.token)
+
+      loadData()
+
+      history.push('/')
     })
     .catch(err => {
       setSignSucces(false)
@@ -184,8 +216,8 @@ function App() {
 
   return (
     <div className="page">
-    <Header isLoggedIn={loggedIn} email={email} onLogOut={handleLogOut}/>
     <UserContext.Provider value={currentUser}>
+    {!isLoading && <>
     <Switch>
       <ProtectedRoute 
           exact path='/'
@@ -196,18 +228,22 @@ function App() {
           onAddPlace={toggleAddPlace} 
           onEditAvatar={toggleEditAvatar}
           cards={initialCards}
+          email={email}
+          onLogOut={handleLogOut}
           onCardDelete={handleCardDelete}
           onCardLike={handleCardLike}/>  
       <Route path='/sign-up'>
+        <Header isLoggedIn={loggedIn} email={email} onLogOut={handleLogOut}/>
         <Register onSignUp = {handleSignUpSubmit}/>
       </Route>
       <Route path='/sign-in' >
+         <Header isLoggedIn={loggedIn} email={email} onLogOut={handleLogOut}/>
          <Login onSignIn = {handleSignInSubmit}/>  
       </Route>
       <Route>
           {!loggedIn ? (<Redirect to="/profile" />) : (<Redirect to="/sign-up" />)}
       </Route>
-    </Switch>
+    </Switch></>}
     <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>  
     </UserContext.Provider>
     <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
